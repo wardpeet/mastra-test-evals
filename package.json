@@ -15,14 +15,14 @@
   "type": "module",
   "dependencies": {
     "@ai-sdk/openai": "^1.1.9",
-    "@mastra/core": "^0.2.0-alpha.96",
-    "@mastra/evals": "^0.1.0-alpha.38",
+    "@mastra/core": "^0.2.0-alpha.99",
+    "@mastra/evals": "^0.1.0-alpha.41",
     "patch-package": "^8.0.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/node": "^22.13.1",
-    "mastra": "^0.2.0-alpha.153",
+    "mastra": "^0.2.0-alpha.157",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }

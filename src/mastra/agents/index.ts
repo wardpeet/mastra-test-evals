@@ -1,5 +1,5 @@
 import { openai } from "@ai-sdk/openai";
-import { Agent } from "@mastra/core/agent";
+import { Agent } from "@mastra/core";
 import { ToneConsistencyMetric } from "@mastra/evals/nlp";
 
 export const weatherAgent = new Agent({
