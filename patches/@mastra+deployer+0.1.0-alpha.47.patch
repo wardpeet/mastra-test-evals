@@ -1,0 +1,41 @@
+diff --git a/node_modules/@mastra/deployer/dist/chunk-EDV35Q7R.js b/node_modules/@mastra/deployer/dist/chunk-EDV35Q7R.js
+index aadcb0b..972b097 100644
+--- a/node_modules/@mastra/deployer/dist/chunk-EDV35Q7R.js
++++ b/node_modules/@mastra/deployer/dist/chunk-EDV35Q7R.js
+@@ -24,13 +24,16 @@ var Bundler = class extends MastraBundler {
+     this.logger.debug(`Writing project's package.json`);
+     await ensureDir(outputDirectory);
+     const pkgPath = join(outputDirectory, "package.json");
+-    const dependenciesObject = {};
++    const dependenciesMap = new Map();
+     for (const [key, value] of dependencies.entries()) {
+-      if (key.startsWith("@") && key.split("/").length > 2) {
++      if (key.startsWith("@")) {
++        const pkgChunks = key.split('/')
++        dependenciesMap.set(`${pkgChunks[0]}/${pkgChunks[1]}`, value)
+         continue;
+       }
+-      dependenciesObject[key] = value;
++      dependenciesMap.set(key, value)
+     }
++    
+     await writeFile(
+       pkgPath,
+       JSON.stringify(
+@@ -45,7 +48,7 @@ var Bundler = class extends MastraBundler {
+           },
+           author: "Mastra",
+           license: "ISC",
+-          dependencies: dependenciesObject
++          dependencies: Object.fromEntries(dependenciesMap.entries())
+         },
+         null,
+         2
+@@ -73,6 +76,7 @@ var Bundler = class extends MastraBundler {
+       "node",
+       this.logger
+     );
++    console.log({analyzedBundleInfo})
+     await this.writePackageJson(
+       join(outputDirectory, this.outputDir),
+       Array.from(analyzedBundleInfo.externalDependencies).reduce((acc, dep) => {
